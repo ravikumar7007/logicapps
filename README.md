@@ -1,4 +1,4 @@
-# Logic Apps (Single-tenant)
+# Logic Apps (Single-tenant) 
 
 [![Build Status](https://dev.azure.com/liliankasem/Logic%20Apps%20v2%20Sample/_apis/build/status/container/Container%20-%20CI?branchName=main)](https://dev.azure.com/liliankasem/Logic%20Apps%20v2%20Sample/_build/latest?definitionId=4&branchName=main)
 
