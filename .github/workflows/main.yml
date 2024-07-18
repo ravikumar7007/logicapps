@@ -1,0 +1,34 @@
+name: Deploy PowerShell project to Azure Function App
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_NAME: mylogicapp7007   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'logicapp.zip'       # set this to the path to your function app project, defaults to the repository root
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v4
+      - name: zip the logic app
+        run: zip -r logicapp.zip . -x ".git/*" ".github/*" "README.md"
+
+    
+      - name: 'Run Azure Functions Action'
+        continue-on-error: true
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: 'mylogicapp7007'
+          package: logicapp.zip
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+
+      - uses: azure/appservice-settings@v1
+        with:
+          app-name: 'mylogicapp7007'
+          app-settings-json: ${{vars.CONFIG}}
